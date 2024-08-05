@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int i,a,c,k=3;
+	char plain[30],cipher[30];
+	printf("enter the plain text: ");
+	scanf("%s",plain);
+	for(i=0;i<strlen(plain);i++)
+	{
+	cipher[i]=char((int(plain[i])-97+k)%26+97);
+    printf("%c",cipher[i]);
+    }
+     printf("\nDecryption\n");
+	for(i=0;i<strlen(plain);i++)
+	{
+    a=(int(cipher[i])-k-97)%26;
+    if(a<0)
+    c=26+a;
+    else
+    c=a;
+    printf("%c",char(c+97));
+    }
+}
