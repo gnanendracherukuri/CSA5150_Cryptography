@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<math.h>
+bool isprime(int n)
+	{
+		int count=0,i;
+		for(i=1;i<=n;i++)
+		{
+			if(n%i==0)
+			count++;
+		}
+		if(count==2)
+		return true;
+		else
+		return false;
+	}
+int main()
+{
+    int n,i,j,p,q,pi,pk,c,a,prk,d,e,m;
+    char mes;
+      printf("enter the message: ");
+    scanf("%c",&mes);
+	printf("enter the value of n: ");
+	scanf("%d",&n);
+	for(i=2;i<=n;i++)
+	{
+	   for(j=2;j<=n;j++)
+	   {
+         if(i*j==n && isprime(i) && isprime(j))
+         {
+        p=i;
+        q=j;
+        break;
+    }
+}
+}
+printf("p= %d q= %d",p,q);
+
+pi=(p-1)*(q-1);
+printf("\nfi(n)=%d",pi);
+printf("\nenter the public key: ");
+scanf("%d",&pk);
+    for (i = 1; i < pi; i++)
+    {
+        if (((pk % pi) * (i % pi)) % pi == 1)
+        {
+            printf(" private key= %d",i);
+            prk=i;
+        }
+    }
+  
+    m=int(mes)-97;
+    c=(pow(m,pk));
+    a=c%pi;
+    printf("\ncipher text = %c",char(a+97));
+    d=pow(a,prk);
+    e=d%pi;
+    printf("\nDECRYPTION: ");
+    printf("\nplain text= %c",char(e+97));
+}
