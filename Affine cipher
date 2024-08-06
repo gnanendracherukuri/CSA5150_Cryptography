@@ -1,0 +1,43 @@
+#include <stdio.h>
+int modInverse(int a, int m) {
+    a = a % m;
+    for (int x = 1; x < m; x++) {
+        if ((a * x) % m == 1) return x;
+    }
+    return -1;
+}
+void breakAffineCipher(char ciphertext[]) {
+    int freq1 = 'B' - 'A'; 
+    int freq2 = 'U' - 'A';
+    int plaintext1 = 'E' - 'A'; 
+    int plaintext2 = 'T' - 'A'; 
+    int a, b, a_inv;
+    int mod = 26;
+    for (a = 1; a < mod; a++) {
+        if ((a * (plaintext1 - plaintext2) % mod + mod) % mod == (freq1 - freq2 + mod) % mod) {
+            break;
+        }
+    }
+    b = (freq1 - a * plaintext1 + mod) % mod;
+    a_inv = modInverse(a, mod);
+    printf("a: %d, b: %d\n", a, b);
+    printf("Decrypted text: ");
+    for (int i = 0; ciphertext[i] != '\0'; i++) {
+        if (ciphertext[i] >= 'A' && ciphertext[i] <= 'Z') {
+            int x = ciphertext[i] - 'A';
+            int decrypted_char = (a_inv * (x - b + mod)) % mod;
+            if (decrypted_char < 0) decrypted_char += mod;
+            printf("%c", decrypted_char + 'A');
+        } else {
+            printf("%c", ciphertext[i]);
+        }
+    }
+    printf("\n");
+}
+int main() {
+    char ciphertext[256];
+    printf("Enter the ciphertext: ");
+    scanf("%255s", ciphertext);
+    breakAffineCipher(ciphertext);
+    return 0;
+}
